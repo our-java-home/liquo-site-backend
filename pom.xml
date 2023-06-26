@@ -35,6 +35,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+
         <!--SpringBoot 2.3开始，校验包单独组件，需要手动引入 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,43 +56,43 @@
             <version>8.0.28</version>
         </dependency>
 
-        <!-- mybatis -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.3.1</version>
-        </dependency>
+<!--        &lt;!&ndash; mybatis &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis.spring.boot</groupId>-->
+<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--            <version>2.3.1</version>-->
+<!--        </dependency>-->
 
-        <!-- 通用mapper逆向工具 -->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>2.1.5</version>
-        </dependency>
+<!--        &lt;!&ndash; 通用mapper逆向工具 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>tk.mybatis</groupId>-->
+<!--            <artifactId>mapper-spring-boot-starter</artifactId>-->
+<!--            <version>2.1.5</version>-->
+<!--        </dependency>-->
 
         <!-- pageHelper -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.4.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.pagehelper</groupId>-->
+<!--            <artifactId>pagehelper-spring-boot-starter</artifactId>-->
+<!--            <version>1.4.1</version>-->
+<!--        </dependency>-->
 
         <!-- jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.10.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.10.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-core</artifactId>-->
+<!--            <version>2.10.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-annotations</artifactId>-->
+<!--            <version>2.10.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-databind</artifactId>-->
+<!--            <version>2.10.2</version>-->
+<!--        </dependency>-->
 
         <!-- apache 工具类 -->
         <dependency>
@@ -118,21 +126,28 @@
         </dependency>
 
         <!-- knife4j 接口文档工具 -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-springdoc-ui</artifactId>
-            <version>3.0.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.xiaoymin</groupId>-->
+<!--            <artifactId>knife4j-spring-boot-starter</artifactId>-->
+<!--            <version>2.0.9</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.xiaoymin</groupId>-->
+<!--            <artifactId>knife4j-springdoc-ui</artifactId>-->
+<!--            <version>3.0.3</version>-->
+<!--        </dependency>-->
 
         <!--  lombok 插件    -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--BeanCopy工具-->
+        <dependency>
+            <groupId>com.github.yangtu222</groupId>
+            <artifactId>BeanUtils</artifactId>
+            <version>1.0.11</version>
         </dependency>
     </dependencies>
 
@@ -142,6 +157,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- smart-doc插件 -->
+            <plugin>
+                <groupId>com.github.shalousun</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <version>2.4.9</version>
+                <configuration>
+                    <!--指定生成文档的使用的配置文件-->
+                    <configFile>./src/main/resources/smart-doc.json</configFile>
+                    <!--指定项目名称-->
+                    <projectName>wine</projectName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

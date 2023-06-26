@@ -7,13 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
-import java.sql.SQLException;
-
 
 /**
- * @author 勿忘初心
- * @since 2023-06-17-0:34
+ * HelloController 项目使用基本示例
+ * @Author: 勿忘初心
+ * @Date: 2023-06-26 1:00
  */
+
 @RestController
 @RequestMapping("/v1/hello")
 @Slf4j
@@ -21,20 +21,24 @@ import java.sql.SQLException;
 public class HelloController {
 
     /**
-     * 接口自描述性
-     * host:port/v1/hello/msg
+     * GetMapping 请求
+     * @param name 用户名称
+     * @param uid  用户uid
      * @return
      */
     @GetMapping("/{id}")
-    public ResultDataVO<String> getMsg(@RequestParam(required = false) String name,
-                                       @Max(value = 10,message = "最大值不能超过10") @PathVariable(name = "id") int uid)
-            throws SQLException {
+    public ResultDataVO getMsg(@RequestParam(required = false) String name,
+                                       @Max(value = 10,message = "最大值不能超过10") @PathVariable(name = "id") int uid) {
         log.info("访问hello下的msg方法。");
         String result = "Hello,"+name+" id "+uid;
 
         return ResultDataVO.success(result);
     }
 
+    /**
+     * 测试统一异常处理
+     * @return
+     */
     @GetMapping("/error")
     public ResultDataVO getError(){
         int res = 1 / 0;
@@ -42,17 +46,33 @@ public class HelloController {
         return ResultDataVO.success(res);
     }
 
+    /**
+     * PostMapping 请求
+     * @param user
+     * @return
+     */
     @PostMapping("/msg")
     public ResultDataVO postMsg(@RequestBody @Validated UserDTO user){
-        return ResultDataVO.success("hello,"+user.getName());
+        return ResultDataVO.success("hello,"+user.getUsername());
     }
 
+    /**
+     * PostMapping 请求
+     * @param user
+     * @param code
+     * @return
+     */
     @PutMapping("/msg")
-    public ResultDataVO putMsg(@RequestBody @Validated UserDTO user,
+    public ResultDataVO putMsg(@RequestBody UserDTO user,
                                @RequestParam Integer code){
-        return ResultDataVO.success("hello,"+user.getName()+" code "+code);
+        return ResultDataVO.success("hello,"+user.getUsername()+" code "+code);
     }
 
+    /**
+     * DeleteMapping请求
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResultDataVO deleteMsg(@PathVariable Integer id){
         return ResultDataVO.success("hello, "+id);

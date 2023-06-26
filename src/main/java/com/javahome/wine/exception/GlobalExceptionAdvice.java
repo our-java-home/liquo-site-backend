@@ -6,6 +6,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -33,6 +34,18 @@ public class GlobalExceptionAdvice {
                 businessException.getMessage());
     }
 
+
+    /**
+     * 普通参数入参不合法,类型不匹配
+     * @return
+     */
+    @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
+    public ResultDataVO handleArgumentTypeException(MethodArgumentTypeMismatchException e){
+        log.error("捕获参数类型不匹配异常",e);
+        return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
+                ExceptionCodeEnum.EC10001.getMessage());
+    }
+
     /**
      * 请求参数绑定到JavaBean对象参数检验失败异常
      * @param e
@@ -55,11 +68,13 @@ public class GlobalExceptionAdvice {
      * 普通参数对象绑定失败异常
      * @return
      */
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(value = ConstraintViolationException.class)
     public ResultDataVO handleMethodArgsNotValidException(ConstraintViolationException e){
         log.error("捕获普通参数异常", e);
-        String errMsg = e.getMessage().replace("getMsg.", "")
-                .replace(": ", "");
+        String sourceMsg = e.getMessage();
+        // [),需要+1
+        int index  = sourceMsg.lastIndexOf(".") + 1;
+        String errMsg = sourceMsg.substring(index).replace(": ", "");
         return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
                 errMsg);
     }

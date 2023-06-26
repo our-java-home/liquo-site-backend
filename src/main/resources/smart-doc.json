@@ -1,0 +1,20 @@
+{
+  "outPath": "src/main/resources/static/doc",
+  "projectName": "wine",
+  "packageFilters": "com.javahome.wine.api.*",
+  "openUrl": "http://localhost:7700/api",
+  "appToken": "7d58c03fee554abc929b4cb2ad76feeb",
+  "debugEnvName":"本地环境",
+  "debugEnvUrl":"http://127.0.0.1:8080",
+  "tornaDebug": true,
+  "replace": true,
+  "responseBodyAdvice":{
+    "className":"com.javahome.wine.vo.ResultDataVO"
+  },
+  "errorCodeDictionaries": [{
+    "title": "业务错误码对照",
+    "enumClassName": "com.javahome.wine.exception.ExceptionCodeEnum",
+    "codeField": "code",
+    "descField": "message"
+  }]
+}

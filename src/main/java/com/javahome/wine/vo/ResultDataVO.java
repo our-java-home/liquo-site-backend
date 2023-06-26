@@ -1,7 +1,6 @@
 package com.javahome.wine.vo;
 
 import com.javahome.wine.exception.ExceptionCodeEnum;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,7 +10,6 @@ import lombok.Data;
  * 统一结果返回格式
  */
 @Data
-@AllArgsConstructor
 @Builder
 public class ResultDataVO<T> {
     /**
@@ -55,6 +53,7 @@ public class ResultDataVO<T> {
      * @return
      */
     public static <T> ResultDataVO<T> failure(Integer code, String message){
+
         return ResultDataVO.<T>builder()
                 .status(false)
                 .code(code)
