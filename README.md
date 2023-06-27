@@ -49,7 +49,7 @@ wine
 
 ```
 ### 技术架构
-![](C:/Users/11460/AppData/Roaming/Typora/typora-user-images/image-20230625024949615.png)
+![image](https://github.com/our-java-home/liquo-site-backend/assets/39646604/243f5cb9-632d-4426-aa66-4d55d826e812)
 
 ### 项目启动
 
