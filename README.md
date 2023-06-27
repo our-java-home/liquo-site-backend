@@ -32,7 +32,7 @@ wine
 │   │       ├── application-test.yml                        // test 测试环境
 │   │       ├── application.yml                             // 主配置文件,根据active配置加载不同的环境,默认dev
 │   │       ├── config
-│   │       ├── config                                      // 用于测试的数据库文件
+│   │       ├── DataSource                                      // 用于测试的数据库文件
 │   │       ├── static
 │   │       │   └── doc                                     // 接口文档输出目录               
 │   │       ├── mapper                                      // 自定义mapper文件
@@ -49,7 +49,8 @@ wine
 
 ```
 ### 技术架构
-![](C:\Users\11460\AppData\Roaming\Typora\typora-userDO-images\image-20230625024949615.png)
+![](C:/Users/11460/AppData/Roaming/Typora/typora-user-images/image-20230625024949615.png)
+
 ### 项目启动
 
 > 下载代码到本地IDE后,确保本地JDK版本为17,依次打开src/main/java/com/javahome/wine下的wineApplication类，点击main函数行左侧run按钮即可启动，
@@ -76,7 +77,7 @@ wine
 ### 全局响应
 > src/main/java/com/javahome/wine/vo目录下的ResultDataVO用于统一返回处理结果,其格式如下。
 > 现已支持返回自定义的格式数据，并且无需显式调用success方法进行数据的返回。
->
+
 ```json
 {
     "status": true,
