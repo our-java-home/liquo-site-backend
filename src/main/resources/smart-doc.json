@@ -3,7 +3,7 @@
   "projectName": "wine",
   "packageFilters": "com.javahome.wine.api.*",
   "openUrl": "http://localhost:7700/api",
-  "appToken": "appToken",
+  "appToken": "your appToken",
   "debugEnvName":"本地环境",
   "debugEnvUrl":"http://127.0.0.1:8080",
   "tornaDebug": true,
