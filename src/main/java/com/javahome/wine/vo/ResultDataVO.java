@@ -1,6 +1,7 @@
 package com.javahome.wine.vo;
 
 import com.javahome.wine.exception.ExceptionCodeEnum;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,11 +12,12 @@ import lombok.Data;
  */
 @Data
 @Builder
+@AllArgsConstructor
 public class ResultDataVO<T> {
     /**
      * 调用结果状态
      */
-    private Boolean status;
+    private Boolean success;
     /**
      * 响应代码
      */
@@ -38,7 +40,7 @@ public class ResultDataVO<T> {
     public static <T> ResultDataVO<T> success(T result) {
 
         return ResultDataVO.<T>builder()
-                .status(true)
+                .success(true)
                 .code(ExceptionCodeEnum.EC0.getCode())
                 .message(ExceptionCodeEnum.EC0.getMessage())
                 .data(result)
@@ -55,7 +57,7 @@ public class ResultDataVO<T> {
     public static <T> ResultDataVO<T> failure(Integer code, String message){
 
         return ResultDataVO.<T>builder()
-                .status(false)
+                .success(false)
                 .code(code)
                 .message(message)
                 .data(null)

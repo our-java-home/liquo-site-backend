@@ -1,15 +1,24 @@
 package com.javahome.wine.exception;
 
 import com.javahome.wine.vo.ResultDataVO;
+import javassist.tools.web.BadHttpRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.reflection.ExceptionUtil;
+import org.springframework.beans.TypeMismatchException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.zip.DataFormatException;
 
 /**
  * @author 勿忘初心
@@ -20,7 +29,59 @@ import java.util.List;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionAdvice {
+    /**
+     * http请求的方法不正确
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResultDataVO handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        log.error("捕获http请求的方法不匹配异常",e);
+        return ResultDataVO.failure(ExceptionCodeEnum.EC10006.getCode(),
+                ExceptionCodeEnum.EC10006.getMessage());
+    }
 
+    /**
+     * 请求参数不全
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResultDataVO missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
+        log.error("捕获参数缺失异常",e);
+        return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
+                ExceptionCodeEnum.EC10001.getMessage());
+    }
+
+    /**
+     * 请求参数类型不正确
+     */
+    @ExceptionHandler(TypeMismatchException.class)
+    public ResultDataVO typeMismatchExceptionHandler(TypeMismatchException e) {
+        log.error("捕获请求参数类型不匹配异常",e);
+        return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
+                ExceptionCodeEnum.EC10001.getMessage());
+    }
+
+    /**
+     * 数据格式转换错误
+     */
+    @ExceptionHandler(DataFormatException.class)
+    @ResponseBody
+    public ResultDataVO dataFormatExceptionHandler(DataFormatException e) {
+        log.error("捕获数据格式转换错误异常",e);
+        return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
+                ExceptionCodeEnum.EC10001.getMessage());
+    }
+
+
+    ///**
+    // * 请求参数类型不匹配异常
+    // * @param e
+    // * @return
+    // */
+    //@ExceptionHandler(value = HttpMessageNotReadableException.class)
+    //public ResultDataVO handleHTTPBindException(HttpMessageNotReadableException e) {
+    //    log.error("捕获HTTP请求参数异常", e);
+    //    return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
+    //            ExceptionCodeEnum.EC10001.getMessage());
+    //}
 
     /**
      * 业务异常捕获
@@ -39,12 +100,12 @@ public class GlobalExceptionAdvice {
      * 普通参数入参不合法,类型不匹配
      * @return
      */
-    @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
-    public ResultDataVO handleArgumentTypeException(MethodArgumentTypeMismatchException e){
-        log.error("捕获参数类型不匹配异常",e);
-        return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
-                ExceptionCodeEnum.EC10001.getMessage());
-    }
+    //@ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
+    //public ResultDataVO handleArgumentTypeException(MethodArgumentTypeMismatchException e){
+    //    log.error("捕获参数类型不匹配异常",e);
+    //    return ResultDataVO.failure(ExceptionCodeEnum.EC10001.getCode(),
+    //            ExceptionCodeEnum.EC10001.getMessage());
+    //}
 
     /**
      * 请求参数绑定到JavaBean对象参数检验失败异常

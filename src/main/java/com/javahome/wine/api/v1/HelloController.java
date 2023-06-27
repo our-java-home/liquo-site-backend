@@ -1,6 +1,6 @@
 package com.javahome.wine.api.v1;
 
-import com.javahome.wine.dto.UserDTO;
+import com.javahome.wine.dto.user.RegisterDTO;
 import com.javahome.wine.vo.ResultDataVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -52,7 +52,7 @@ public class HelloController {
      * @return
      */
     @PostMapping("/msg")
-    public ResultDataVO postMsg(@RequestBody @Validated UserDTO user){
+    public ResultDataVO postMsg(@RequestBody @Validated RegisterDTO user){
         return ResultDataVO.success("hello,"+user.getUsername());
     }
 
@@ -63,7 +63,7 @@ public class HelloController {
      * @return
      */
     @PutMapping("/msg")
-    public ResultDataVO putMsg(@RequestBody UserDTO user,
+    public ResultDataVO putMsg(@RequestBody RegisterDTO user,
                                @RequestParam Integer code){
         return ResultDataVO.success("hello,"+user.getUsername()+" code "+code);
     }

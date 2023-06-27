@@ -1,7 +1,7 @@
 package com.javahome.wine.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.javahome.wine.model.User;
+import com.javahome.wine.model.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * 继承BaseMapper,具有基本的操作数据库功能
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<UserDO> {
 }

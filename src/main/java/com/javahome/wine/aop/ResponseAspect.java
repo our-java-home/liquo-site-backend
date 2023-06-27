@@ -3,6 +3,7 @@ package com.javahome.wine.aop;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javahome.wine.vo.ResultDataVO;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
 
 /**
  * @author 勿忘初心
@@ -22,6 +24,7 @@ import javax.annotation.Resource;
  * @RestControllerAdvice 全局捕获抛出的异常，全局数据绑定，全局数据预处理。
  *
  */
+@Slf4j
 @RestControllerAdvice
 public class ResponseAspect implements ResponseBodyAdvice<Object> {
 
@@ -36,6 +39,7 @@ public class ResponseAspect implements ResponseBodyAdvice<Object> {
     @SneakyThrows
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+
         /**
          * 返回类型为String则需要手动序列化
          */
@@ -48,6 +52,17 @@ public class ResponseAspect implements ResponseBodyAdvice<Object> {
         if(body instanceof ResultDataVO){
             return body;
         }
+        /**
+         * 判断是否为404,500等错误类型
+         */
+        if(body instanceof LinkedHashMap){
+            LinkedHashMap<String,Object> httpErrorCode =(LinkedHashMap<String, Object>) body;
+            int code = (int)httpErrorCode.get("status");
+            String message = (String) httpErrorCode.get("error");
+            return new ResultDataVO(false,code,message,null);
+
+        }
+
 
         return ResultDataVO.success(body);
     }

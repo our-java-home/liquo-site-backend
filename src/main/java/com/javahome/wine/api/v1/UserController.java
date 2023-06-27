@@ -1,6 +1,7 @@
 package com.javahome.wine.api.v1;
 
-import com.javahome.wine.dto.UserDTO;
+import com.javahome.wine.dto.user.RegisterDTO;
+import com.javahome.wine.dto.user.UpdateDTO;
 import com.javahome.wine.exception.ExceptionCodeEnum;
 import com.javahome.wine.service.UserService;
 import com.javahome.wine.vo.PageVO;
@@ -12,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * UserController 用户模块简单示例
@@ -35,37 +34,37 @@ public class UserController {
 
     /**
      * 根据Id获取用户信息
-     * @param uid
+     * @param uid 用户uid
      * @return
      */
     @GetMapping("/{id}")
-    public UserVO getUser(@Min(value = 1,message = "输入的参数不合法") @PathVariable(name = "id") Long uid) {
+    public UserVO getUser(@Min(value = 1,message = "输入的参数不合法") @PathVariable(name = "id") Integer uid) {
         return userService.getUserById(uid);
     }
 
     /**
      * 新增用户信息
-     * @param addUserDto
+     * @param addUserDto 新增用户DTO对象
      * @return
      */
     @PostMapping
-    public ResultDataVO addUser(@Validated @RequestBody UserDTO addUserDto) {
+    public ResultDataVO addUser(@Validated @RequestBody RegisterDTO addUserDto) {
         return userService.addUser(addUserDto);
     }
 
     /**
      * 修改用户信息
-     * @param updateUserDto
+     * @param updateUserDto 更新用户DTO对象
      * @return
      */
     @PutMapping
-    public ResultDataVO updateUser(@Validated @RequestBody UserDTO updateUserDto) {
+    public ResultDataVO updateUser(@Validated @RequestBody UpdateDTO updateUserDto) {
         return userService.updateUser(updateUserDto);
     }
 
     /***
      * 根据id删除用户
-     * @param id
+     * @param id 用户id
      * @return
      */
     @DeleteMapping("/{id}")
@@ -75,8 +74,8 @@ public class UserController {
 
     /**
      * 分页查询用户
-     * @param pageNum
-     * @param pageSize
+     * @param pageNum 当前页码
+     * @param pageSize 页面数量
      * @return
      */
     @GetMapping

@@ -13,8 +13,10 @@ spring:
       max-request-size: 2MB     # 文件最大请求限制，用于批量上传
       #      max-request-size: 500KB
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true   # 将日期以时间戳形式返回
+  # date-format: yyyy-MM-dd HH:mm:ss    # 日期格式为字符串
+    # time-zone: GMT+8                    # 时区调整
 # 整合mybatis-plus
 mybatis-plus:
   configuration:

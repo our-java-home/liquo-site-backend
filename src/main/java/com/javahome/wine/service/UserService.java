@@ -1,6 +1,7 @@
 package com.javahome.wine.service;
 
-import com.javahome.wine.dto.UserDTO;
+import com.javahome.wine.dto.user.RegisterDTO;
+import com.javahome.wine.dto.user.UpdateDTO;
 import com.javahome.wine.vo.PageVO;
 import com.javahome.wine.vo.ResultDataVO;
 import com.javahome.wine.vo.UserVO;
@@ -17,14 +18,14 @@ public interface UserService {
      * @param userDTO
      * @return
      */
-    ResultDataVO addUser(UserDTO userDTO);
+    ResultDataVO addUser(RegisterDTO userDTO);
 
     /**
      * 更新用户
      * @param userDTO
      * @return
      */
-    ResultDataVO updateUser(UserDTO userDTO);
+    ResultDataVO updateUser(UpdateDTO userDTO);
 
     /**
      * 删除用户
@@ -46,6 +47,6 @@ public interface UserService {
      * @param id
      * @return
      */
-    UserVO getUserById(Long id);
+    UserVO getUserById(Integer id);
 
 }

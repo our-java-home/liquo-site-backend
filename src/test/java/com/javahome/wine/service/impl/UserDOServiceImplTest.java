@@ -1,8 +1,7 @@
 package com.javahome.wine.service.impl;
 
 import com.javahome.wine.mapper.UserMapper;
-import com.javahome.wine.model.User;
-import com.javahome.wine.vo.ResultDataVO;
+import com.javahome.wine.model.UserDO;
 import com.javahome.wine.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Rollback
 @Slf4j
-public class UserServiceImplTest {
+public class UserDOServiceImplTest {
 
     @Autowired
     private UserMapper userMapper;
@@ -35,10 +34,10 @@ public class UserServiceImplTest {
      */
     @Test
     public void getUserById() {
-        User user = userMapper.selectById(1);
-        log.info("user "+user.toString());
+        UserDO userDO = userMapper.selectById(1);
+        log.info("userDO "+ userDO.toString());
         UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(user,userVO);
+        BeanUtils.copyProperties(userDO,userVO);
         Assertions.assertEquals("张三", userVO.getUsername());
     }
 }
