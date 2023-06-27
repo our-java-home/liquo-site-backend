@@ -12,8 +12,8 @@
     <groupId>com.javahome</groupId>
     <artifactId>wine</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>wine</name>
-    <description>wine</description>
+    <name>liquor-site-backend</name>
+    <description>liquor-site-backend</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
