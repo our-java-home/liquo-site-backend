@@ -1,9 +1,9 @@
 # liquo-site-backend
 
 ## 项目目录结构
+> 由于git会默认过滤空文件夹，因此某些目录将无法正常显示。
 ```text
-wine
-├── src
+src
 │   ├── main
 │   │   ├── java
 │   │   │   └── com
