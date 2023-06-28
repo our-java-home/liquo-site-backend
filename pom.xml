@@ -56,44 +56,6 @@
             <version>8.0.28</version>
         </dependency>
 
-<!--        &lt;!&ndash; mybatis &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis.spring.boot</groupId>-->
-<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--            <version>2.3.1</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; 通用mapper逆向工具 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>tk.mybatis</groupId>-->
-<!--            <artifactId>mapper-spring-boot-starter</artifactId>-->
-<!--            <version>2.1.5</version>-->
-<!--        </dependency>-->
-
-        <!-- pageHelper -->
-<!--        <dependency>-->
-<!--            <groupId>com.github.pagehelper</groupId>-->
-<!--            <artifactId>pagehelper-spring-boot-starter</artifactId>-->
-<!--            <version>1.4.1</version>-->
-<!--        </dependency>-->
-
-        <!-- jackson -->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-core</artifactId>-->
-<!--            <version>2.10.2</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-annotations</artifactId>-->
-<!--            <version>2.10.2</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-databind</artifactId>-->
-<!--            <version>2.10.2</version>-->
-<!--        </dependency>-->
-
         <!-- apache 工具类 -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -125,30 +87,25 @@
             <version>2.10.6</version>
         </dependency>
 
-        <!-- knife4j 接口文档工具 -->
-<!--        <dependency>-->
-<!--            <groupId>com.github.xiaoymin</groupId>-->
-<!--            <artifactId>knife4j-spring-boot-starter</artifactId>-->
-<!--            <version>2.0.9</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.github.xiaoymin</groupId>-->
-<!--            <artifactId>knife4j-springdoc-ui</artifactId>-->
-<!--            <version>3.0.3</version>-->
-<!--        </dependency>-->
-
         <!--  lombok 插件    -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!--BeanCopy工具-->
+        <!-- BeanCopy工具 -->
         <dependency>
             <groupId>com.github.yangtu222</groupId>
             <artifactId>BeanUtils</artifactId>
             <version>1.0.11</version>
         </dependency>
+        <!-- 相比BeanUtils工具性能更佳 -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.3.Final</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -175,7 +132,33 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+            <!-- mapstruct插件整合lombok -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.5.3.Final</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.24</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>m
     </build>
 
 </project>

@@ -22,8 +22,10 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true          # 开启驼峰命名匹配
     auto-mapping-behavior: full                 # 自动映射
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql执行语句
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl       # 打印sql执行语句,只能输出到控制台。
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl           # 除控制台外,可输出到日志中
     mapper-locations: classpath:mapper/*.xml    # mapper映射文件
+
   type-aliases-package: com.javahome.wine.model # 实体映射
   global-config:                                # 全局配置
     db-config:
@@ -43,3 +45,4 @@ mybatis-plus:
 logging:
   level:
     root: info
+#    com.javahome.wine.mapper: debug            # 指定sql语句输出界别为debug
