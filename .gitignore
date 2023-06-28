@@ -61,3 +61,4 @@ build/
 # smart-doc & test
 src/test
 src/main/resources/smart-doc.json
+src/main/resources/static/doc
