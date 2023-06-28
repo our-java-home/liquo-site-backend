@@ -1,11 +1,20 @@
 package com.javahome.wine.exception;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.javahome.wine.exception.BusinessException;
+import com.javahome.wine.exception.ExceptionCodeEnum;
 import com.javahome.wine.vo.ResultDataVO;
 import javassist.tools.web.BadHttpRequest;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.ExceptionUtil;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.core.MethodParameter;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,20 +24,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import javax.annotation.Resource;
 import javax.validation.ConstraintViolationException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
 /**
- * @author 勿忘初心
- * @since 2023-06-19-17:05
+ * @Author: 勿忘初心
+ * @Date: 2023-06-28 17:22
  * 全局异常统一处理
+ * 新增响应体增强，用于消除重复调用ResultVO对象返回数据而产生的代码冗余以及不便
+ * @RestControllerAdvice 全局捕获抛出的异常，全局数据绑定，全局数据预处理。
  */
-
 @RestControllerAdvice
 @Slf4j
-public class GlobalExceptionAdvice {
+public class GlobalExceptionAdvice implements ResponseBodyAdvice<Object> {
+
+
+    @Resource
+    private ObjectMapper objectMapper;
+
     /**
      * http请求的方法不正确
      */
@@ -162,5 +180,40 @@ public class GlobalExceptionAdvice {
         log.error("捕获系统级异常", throwable);
         return ResultDataVO.failure(ExceptionCodeEnum.EC10000.getCode(),
                 ExceptionCodeEnum.EC10000.getMessage());
+    }
+
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return true;
+    }
+
+    @SneakyThrows
+    @Override
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        /**
+         * 返回类型为String则需要手动序列化
+         */
+        if(body instanceof String){
+            return objectMapper.writeValueAsString(ResultDataVO.success(body));
+        }
+        /**
+         * 已被包装为全局VO对象直接返回
+         */
+        if(body instanceof ResultDataVO){
+            return body;
+        }
+        /**
+         * 判断是否为404,500等错误类型
+         */
+        if(body instanceof LinkedHashMap){
+            LinkedHashMap<String,Object> httpErrorCode =(LinkedHashMap<String, Object>) body;
+            int code = (int)httpErrorCode.get("status");
+            String message = (String) httpErrorCode.get("error");
+            return new ResultDataVO(false,code,message,null);
+
+        }
+
+
+        return ResultDataVO.success(body);
     }
 }
