@@ -32,7 +32,7 @@ src
 │   │       ├── application-test.yml                        // test 测试环境
 │   │       ├── application.yml                             // 主配置文件,根据active配置加载不同的环境,默认dev
 │   │       ├── config
-│   │       ├── DataSource                                      // 用于测试的数据库文件
+│   │       ├── DataSource                                  // 用于测试的数据库文件
 │   │       ├── static
 │   │       │   └── doc                                     // 接口文档输出目录               
 │   │       ├── mapper                                      // 自定义mapper文件
@@ -40,10 +40,10 @@ src
 │   └── test                                                // 单元测试相关
 │       └── java
 │           └── com
-│               ├── javahome
-│               │   └── wine
-│               │       └── WineApplicationTests.java
-│               └── mall
+│               └── javahome
+│                   └── wine
+│                   │   └── service
+│                   └── WineApplicationTests.java
 ├── .gitignore
 └── pom.xml
 
