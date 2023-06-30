@@ -1,18 +1,13 @@
 package com.javahome.wine.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javahome.wine.exception.BusinessException;
-import com.javahome.wine.exception.ExceptionCodeEnum;
 import com.javahome.wine.vo.ResultDataVO;
-import javassist.tools.web.BadHttpRequest;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.reflection.ExceptionUtil;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.validation.ObjectError;
@@ -22,8 +17,6 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.annotation.Resource;
@@ -207,7 +200,7 @@ public class GlobalExceptionAdvice implements ResponseBodyAdvice<Object> {
          */
         if(body instanceof LinkedHashMap){
             LinkedHashMap<String,Object> httpErrorCode =(LinkedHashMap<String, Object>) body;
-            int code = (int)httpErrorCode.get("status");
+            Integer code = (Integer)httpErrorCode.get("status");
             String message = (String) httpErrorCode.get("error");
             return new ResultDataVO(false,code,message,null);
 

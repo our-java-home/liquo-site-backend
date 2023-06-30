@@ -5,7 +5,7 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: prod
   servlet:
     multipart:
       max-file-size: 2MB      # 文件上传大小限制，设置最大值，不能超过该值，否则报错
@@ -46,3 +46,4 @@ logging:
   level:
     root: info
 #    com.javahome.wine.mapper: debug            # 指定sql语句输出界别为debug
+
