@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>图片上传和展示demo</title>
+</head>
+<body>
+<h1>图片上传</h1>
+<form action="/v1/fastDFSDemo/upload" method="post" enctype="multipart/form-data">
+  <div>
+    <label for="file">选择文件：</label>
+    <input type="file" id="file" name="file" />
+  </div>
+  <br />
+  <div>
+    <button type="submit">上传文件</button>
+  </div>
+</form>
+
+<h1>图片展示</h1>
+<form action="/v1/fastDFSDemo/show" method="get">
+  <div>
+    <label for="groupName">组名：</label>
+    <input type="text" id="groupName" name="groupName"/>
+  </div>
+  <br />
+
+  <div>
+    <label for="fileName">文件名：</label>
+    <input type="text" id="fileName" name="fileName"/>
+  </div>
+  <br />
+
+  <div>
+    <button type="submit">展示图片</button>
+  </div>
+</form>
+
+</body>
+</html>
