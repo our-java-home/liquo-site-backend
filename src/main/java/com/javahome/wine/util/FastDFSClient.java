@@ -150,7 +150,9 @@ public class FastDFSClient {
             // 根据组名和文件名通过 Storage 客户端获取文件的字节数组
             byte[] bytes = storageClient.download_file(groupName == null ? "group1" : groupName, remoteFileName);
             // 找不到这个文件
-            if (bytes == null) return null;
+            if (bytes == null) {
+                return null;
+            }
             // 返回字节流对象
             return new ByteArrayInputStream(bytes);
         } catch (IOException | MyException e) {

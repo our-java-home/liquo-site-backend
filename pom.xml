@@ -112,11 +112,11 @@
             <version>1.5.3.Final</version>
         </dependency>
         <!--  fastDFS依赖，图片存储 -->
-        <dependency>
-            <groupId>com.github.tobato</groupId>
-            <artifactId>fastdfs-client</artifactId>
-            <version>1.27.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.tobato</groupId>-->
+<!--            <artifactId>fastdfs-client</artifactId>-->
+<!--            <version>1.27.2</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -128,12 +128,20 @@
             <groupId>com.taoyuanx</groupId>
             <artifactId>fastdfs-client-java</artifactId>
             <version>1.29-RELEASE</version>
+            <exclusions>
+                <!-- 排除jar包冲突 -->
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Thymeleaf-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+
         </dependency>
 
     </dependencies>
